@@ -51,12 +51,13 @@ public class CartwrightAssignment06 extends JFrame
 		for (int i = 0; i < squares.length; i++)
 		{
 			if(  i < 3)
-				top.add(squares[i] = new JLabel("_top_"));
+				top.add(squares[i] = new JLabel("_"));
 			else if ((i >= 3) && (i < 6))
-				mid.add(squares[i] = new JLabel("_mid_"));
+				mid.add(squares[i] = new JLabel("_"));
 			else
-				bot.add(squares[i] = new JLabel("_bot_"));
+				bot.add(squares[i] = new JLabel("_"));
 
+			squares[i].setFont(new Font("Courier", Font.BOLD, 144));
 		}
 
 		sim = new JButton("Simulate game.");
@@ -82,9 +83,31 @@ public class CartwrightAssignment06 extends JFrame
 					board[i] = "O";
 
 				squares[i].setText(board[i]);
-
-				calculateWinner(); // DO THIS NEXT
 			}
+
+			// This does a row (top, mid, bot), column (left to right), and diagonal (neg to pos slope)
+			//	approach to find *the* winner in the event of multiple winners.
+			// Since the array is populated in this fashion, it is the fair way to determine
+			// 	which winner "first" finished.
+
+			if 	((board[0] == board[1]) && (board[1] == board[2]))
+				JOptionPane.showMessageDialog(null, "\"" + board[0] + "\" WINS!");
+			else if ((board[3] == board[4]) && (board[4] == board[5]))
+				JOptionPane.showMessageDialog(null, "\"" + board[3] + "\" WINS!");
+			else if ((board[6] == board[7]) && (board[7] == board[8]))
+				JOptionPane.showMessageDialog(null, "\"" + board[6] + "\" WINS!");
+			else if ((board[0] == board[3]) && (board[3] == board[6]))
+				JOptionPane.showMessageDialog(null, "\"" + board[0] + "\" WINS!");
+			else if ((board[1] == board[4]) && (board[4] == board[7]))
+				JOptionPane.showMessageDialog(null, "\"" + board[1] + "\" WINS!");
+			else if ((board[2] == board[5]) && (board[5] == board[7]))
+				JOptionPane.showMessageDialog(null, "\"" + board[2] + "\" WINS!");
+			else if ((board[0] == board[4]) && (board[4] == board[8]))
+				JOptionPane.showMessageDialog(null, "\"" + board[0] + "\" WINS!");
+			else if ((board[6] == board[4]) && (board[4] == board[2]))
+				JOptionPane.showMessageDialog(null, "\"" + board[6] + "\" WINS!");
+			else
+				JOptionPane.showMessageDialog(null, board[3] + "CATSCRATCH! Nobody wins!");
 
 			pack();
 		}
